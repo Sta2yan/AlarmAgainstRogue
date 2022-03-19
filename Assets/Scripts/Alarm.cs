@@ -7,16 +7,16 @@ public class Alarm : MonoBehaviour
     [SerializeField] private float _stepVolumeUp;
 
     private AudioSource _source;
+    private float _maximumValue = 1f;
+    private float _minimumValue = 0f;
     private float _startVolume = 0f;
     private float _percentOfStep = 100f;
-    private float _startPointSound = 0f;
-    private float _endPointSound = 1f;
     private WaitForSeconds _waitSeconds;
 
     private void Awake()
     {
         _source = GetComponent<AudioSource>();
-        _source.volume = 0f;
+        _source.volume = _startVolume;
         _stepVolumeUp /= _percentOfStep;
         _waitSeconds = new WaitForSeconds(_stepVolumeUp);
     }
@@ -35,18 +35,18 @@ public class Alarm : MonoBehaviour
     {
         _source.Play();
 
-        while (_startVolume <= 1)
+        while (_startVolume <= _maximumValue)
         {
-            _source.volume = Mathf.MoveTowards(_startPointSound, _endPointSound, _startVolume += _stepVolumeUp);
+            _source.volume = Mathf.MoveTowards(_minimumValue, _maximumValue, _startVolume += _stepVolumeUp);
             yield return _waitSeconds;
         }
     }
 
     private IEnumerator TurnDownVolume()
     {
-        while (_startVolume >= 0)
+        while (_startVolume >= _minimumValue)
         {
-            _source.volume = Mathf.MoveTowards(_startPointSound, _endPointSound, _startVolume -= _stepVolumeUp);
+            _source.volume = Mathf.MoveTowards(_minimumValue, _maximumValue, _startVolume -= _stepVolumeUp);
             yield return _waitSeconds;
         }
 
