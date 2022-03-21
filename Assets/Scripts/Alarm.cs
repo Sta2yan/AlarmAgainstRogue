@@ -24,24 +24,26 @@ public class Alarm : MonoBehaviour
         _waitSeconds = new WaitForSeconds(_stepChangeTime);
     }
 
-    public void StartChangeSmoothVolume(int duration)
+    private void Update()
+    {
+        Debug.Log(Mathf.MoveTowards(0, 1, Time.deltaTime));
+    }
+
+    public void StartChangeSmoothVolume()
     {
         if (_coroutine != null)
             StopCoroutine(_coroutine);
 
-        _coroutine = StartCoroutine(ChangeSmoothVolume(duration));
+        _coroutine = StartCoroutine(ChangeSmoothVolume());
     }
 
-    private IEnumerator ChangeSmoothVolume(int duration)
+    private IEnumerator ChangeSmoothVolume()
     {
         _startVolume = _source.volume;
-        float a = 0;
 
         while (_startVolume <= _maximumValue && _startVolume >= _minimumValue)
         {
-            a += Time.deltaTime;
-            _source.volume = Mathf.MoveTowards(_minimumValue, _maximumValue, _startVolume += _soundChangeInSecond * Time.deltaTime * duration);
-            Debug.Log(a);
+            _source.volume = Mathf.MoveTowards(_minimumValue, _maximumValue, _startVolume += _soundChangeInSecond * Time.deltaTime);
             yield return _waitSeconds;
         }
     }
