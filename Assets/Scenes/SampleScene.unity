@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aedeaf71db7405b41b5bc4223e0a6306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soundChangeInSecond: 3
+  _soundChangeInSecond: 1
 --- !u!114 &413999691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,32 +550,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac4f0c26a360ba4390d6623916efde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _thiefCame:
+  _thiefEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 413999690}
         m_TargetAssemblyTypeName: Alarm, Assembly-CSharp
         m_MethodName: StartChangeSmoothVolume
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _thiefGone:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 413999690}
-        m_TargetAssemblyTypeName: Alarm, Assembly-CSharp
-        m_MethodName: StartChangeSmoothVolume
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

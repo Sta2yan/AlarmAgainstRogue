@@ -12,21 +12,18 @@ public class Alarm : MonoBehaviour
     private float _startVolume = 0f;
     private float _stepChangeTime;
     private float _percentOfStep = 1000f;
+    private float _stepChange;
     private WaitForSeconds _waitSeconds;
     private Coroutine _coroutine;
 
     private void Awake()
     {
+        _stepChange = -_soundChangeInSecond;
         _source = GetComponent<AudioSource>();
         _source.Play();
         _source.volume = _startVolume;
         _stepChangeTime = _soundChangeInSecond / _percentOfStep;
         _waitSeconds = new WaitForSeconds(_stepChangeTime);
-    }
-
-    private void Update()
-    {
-        Debug.Log(Mathf.MoveTowards(0, 1, Time.deltaTime));
     }
 
     public void StartChangeSmoothVolume()
@@ -40,10 +37,11 @@ public class Alarm : MonoBehaviour
     private IEnumerator ChangeSmoothVolume()
     {
         _startVolume = _source.volume;
+        _stepChange = -_stepChange;
 
         while (_startVolume <= _maximumValue && _startVolume >= _minimumValue)
         {
-            _source.volume = Mathf.MoveTowards(_minimumValue, _maximumValue, _startVolume += _soundChangeInSecond * Time.deltaTime);
+            _source.volume = Mathf.MoveTowards(_minimumValue, _maximumValue, _startVolume += _stepChange * Time.deltaTime);
             yield return _waitSeconds;
         }
     }
