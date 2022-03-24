@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Alarm : MonoBehaviour
 {
-    [SerializeField] private float _soundChangeInSecond;
+    [SerializeField] private float _step;
 
     private AudioSource _source;
     private float _maximumValue = 1f;
@@ -18,11 +18,11 @@ public class Alarm : MonoBehaviour
 
     private void Awake()
     {
-        _stepChange = -_soundChangeInSecond;
+        _stepChange = -_step;
         _source = GetComponent<AudioSource>();
         _source.Play();
         _source.volume = _startVolume;
-        _stepChangeTime = _soundChangeInSecond / _percentOfStep;
+        _stepChangeTime = _step / _percentOfStep;
         _waitSeconds = new WaitForSeconds(_stepChangeTime);
     }
 
